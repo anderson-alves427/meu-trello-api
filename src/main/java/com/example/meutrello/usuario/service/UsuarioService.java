@@ -9,6 +9,7 @@ import com.example.meutrello.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,6 +19,9 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Page<DadosListagemUsuario> listarUsuariosAtivos(Pageable paginacao) {
         Page page = usuarioRepository.findAllByAtivoTrue(paginacao).map(DadosListagemUsuario::new);
@@ -30,8 +34,9 @@ System.out.println("====="+ usuario);
         if (usuario != null) {
             throw new BadRequestException("Usuário já cadastrado. Tente outro.");
         }
-
         Usuario usuarioParaCadastro = new Usuario(dados);
+        var passwordEnconder = bCryptPasswordEncoder.encode(dados.senha());
+        usuarioParaCadastro.setSenha(passwordEnconder);
         usuarioRepository.save(usuarioParaCadastro);
         return usuarioParaCadastro;
     }

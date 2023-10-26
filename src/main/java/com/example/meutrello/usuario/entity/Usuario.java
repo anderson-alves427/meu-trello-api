@@ -2,10 +2,7 @@ package com.example.meutrello.usuario.entity;
 
 import com.example.meutrello.usuario.record.DadosCadastroUsuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +12,7 @@ import java.util.Date;
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -37,7 +35,6 @@ public class Usuario implements UserDetails {
 
     public Usuario(DadosCadastroUsuario dados) {
         this.usuario = dados.usuario();
-        this.senha = dados.senha();
         this.ativo = true;
         this.data_criacao = new Date();
     }
