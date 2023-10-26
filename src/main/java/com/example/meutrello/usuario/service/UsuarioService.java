@@ -26,7 +26,7 @@ public class UsuarioService {
 
     public Usuario cadastra(DadosCadastroUsuario dados) {
         var usuario = usuarioRepository.findByUsuario(dados.usuario());
-
+System.out.println("====="+ usuario);
         if (usuario != null) {
             throw new BadRequestException("Usuário já cadastrado. Tente outro.");
         }

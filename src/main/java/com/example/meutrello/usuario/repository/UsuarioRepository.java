@@ -14,7 +14,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Page<Usuario> findAllByAtivoTrue(Pageable paginacao);
 
-    UserDetails findByUsuario(String login);
+    UserDetails findByUsuario(String usuario);
 
 
 }
